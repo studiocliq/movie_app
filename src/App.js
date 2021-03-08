@@ -13,12 +13,21 @@ class App extends React.Component {
       data: {
         data: { movies }
       }
-    } = await axios.get('https://yts-proxy.now.sh/list_movies.json');
+    } = await axios.get('https://yts-proxy.nomadcoders1.now.sh/list_movies.json');
+
+    var movieCopy = movies.slice();
+
+    movieCopy.map( movie => {
+      if(movie.genres === undefined) {
+        movie.genres = ['UNKNOWN'];
+      }
+      return movie;
+    })
 
     this.setState(
       { 
         isLoading: false,
-        movies: movies
+        movies: movieCopy
       });
   }
 
@@ -29,14 +38,20 @@ class App extends React.Component {
   render() {
     const { movies, isLoading } = this.state;
     return(
-      <section class="container">
+      <section className="container">
         { isLoading ? 
-          <div class="loader">
+          <div className="loader">
             <span>Loading...</span>
           </div> :
-          <div class="movies">
+          <div className="movies">
             {movies.map(movie => {
-              return <Movie key={movie.id} title={movie.title} summary={movie.summary} year={movie.year} poster={movie.medium_cover_image}/>
+              return <Movie 
+                key={movie.id}
+                title={movie.title}
+                summary={movie.summary}
+                year={movie.year}
+                poster={movie.medium_cover_image}
+                genres={movie.genres}/>
             })}
           </div>
         }
