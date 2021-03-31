@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    background-color: #EEF2F7;
+    margin: 0;
+    width: 100vw;   
+}
+
+.movies {
+    text-align: center;
+}
